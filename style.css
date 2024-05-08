@@ -145,17 +145,32 @@ section {
   width: 100%;
 }
 
-.sales img {
+.monthly img {
   width: 100%;
 }
 
-.satisfaction img {
+.revenue img {
   width: 100%;
 }
 
-.target img {
+.total img {
   width: 100%;
-} */
+} 
+.average img {
+  width: 100%;
+}
+
+.building img {
+  width: 100%;
+}
+
+.expensive img {
+  width: 100%;
+}
+
+.map img {
+  width: 100%;
+}*/
 
 h2 {
   margin-top: 0;
