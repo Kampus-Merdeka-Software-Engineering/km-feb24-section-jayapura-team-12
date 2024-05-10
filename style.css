@@ -7,11 +7,6 @@
   box-sizing: border-box;
 }
 
-body {
-  display: flex;
-  border: 1px solid black;
-}
-
 .logo {
   margin: 5px;
   width: 50px;
@@ -48,14 +43,40 @@ header .profile {
 
 main {
   background-color: #1c1c1c;
-  width: 100%;
+  padding: 3rem 3rem;
 }
 
-.container {
-  padding: 1.5rem 0;
+.card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+select,
+input[type="date"] {
+  padding: 15px;
+  margin: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
+  background: #1f2229;
+  color: white;
+}
+
+.item {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
 img {
@@ -132,4 +153,36 @@ section {
   top: 40%;
   left: 40%;
   transform: translate(-50%, -50%);
+}
+
+.bg-violet {
+  background: #e9d5d7;
+}
+
+.bg-lemon {
+  background: #fed1ba;
+}
+
+.bg-mint {
+  background: #dcfce7;
+}
+
+.bg-lavender {
+  background: #f4e8ff;
+}
+
+.bg-pink {
+  background-color: rgb(253, 100, 136);
+}
+
+.bg-green {
+  background-color: rgb(71, 210, 53);
+}
+
+.bg-orange {
+  background-color: rgb(241, 143, 72);
+}
+
+.bg-purple {
+  background-color: rgb(204, 98, 253);
 }

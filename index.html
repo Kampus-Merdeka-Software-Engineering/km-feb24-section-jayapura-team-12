@@ -5,77 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="laptop.css" />
   </head>
   <body>
+    <header>
+      <h2>Dashboard - New York City Property Sales</h2>
+      <div class="profile">
+        <img class="logo" src="img/logo1.png" alt="logo" />
+        <p class="team12">Team 12</p>
+      </div>
+    </header>
     <main>
-      <header>
-        <h2>Dashboard - New York City Property Sales</h2>
-        <div class="profile">
-          <img class="logo" src="img/logo1.png" alt="logo" />
-          <p class="team12">Team 12</p>
-        </div>
-      </header>
       <div class="container">
-        <section class="kpi">
-          <div class="kpi-title">
-            <h2>Sales Summary</h2>
-            <span>KPI (Key Performance Indicator)</span>
-          </div>
-          <div class="card-wrap">
-            <div class="card" style="background: #e9d5d7">
-              <div
-                class="circle-logo"
-                style="background-color: rgb(253, 100, 136)">
-                <img src="img/total sales.png" alt="" class="logo" />
-              </div>
-              <h4>58.5K</h4>
-              <h5>Total Sales</h5>
+        <div class="filter-section">
+          <select id="boroughSelect">
+            <option value="">Pilih Borough</option>
+            <option value="Manhattan">Manhattan</option>
+            <option value="Brooklyn">Brooklyn</option>
+            <option value="Bronx">Bronx</option>
+            <option value="Queens">Queens</option>
+            <option value="Staten Island">Staten Island</option>
+          </select>
+          <input type="date" id="datePicker" onchange="filterItems()" />
+        </div>
+        <div class="card-container">
+          <section class="kpi">
+            <div class="kpi-title">
+              <h2>Sales Summary</h2>
+              <span>KPI (Key Performance Indicator)</span>
             </div>
-            <div class="card" style="background: #fed1ba">
-              <div
-                class="circle-logo"
-                style="background-color: rgb(241, 143, 72)">
-                <img src="img/revenue.png" alt="" class="logo" />
+            <div class="card-wrap">
+              <div class="card bg-violet">
+                <div class="circle-logo bg-pink">
+                  <img src="img/total sales.png" alt="" class="logo" />
+                </div>
+                <h4>58.5K</h4>
+                <h5>Total Sales</h5>
               </div>
-              <h4>89.1B</h4>
-              <h5>Revenue</h5>
-            </div>
-            <div class="card" style="background: #dcfce7">
-              <div
-                class="circle-logo"
-                style="background-color: rgb(71, 210, 53)">
-                <img src="img/residential.png" alt="" class="logo" />
+              <div class="card bg-lemon">
+                <div class="circle-logo bg-orange">
+                  <img src="img/revenue.png" alt="" class="logo" />
+                </div>
+                <h4>89.1B</h4>
+                <h5>Revenue</h5>
               </div>
-              <h4>99.5K</h4>
-              <h5>Residential Units</h5>
-            </div>
-            <div class="card" style="background: #f4e8ff">
-              <div
-                class="circle-logo"
-                style="background-color: rgb(204, 98, 253)">
-                <img src="img/commercial.png" alt="" class="logo" />
+              <div class="card bg-mint">
+                <div class="circle-logo bg-green">
+                  <img src="img/residential.png" alt="" class="logo" />
+                </div>
+                <h4>99.5K</h4>
+                <h5>Residential Units</h5>
               </div>
-              <h4>9.04K</h4>
-              <h5>Commercial Units</h5>
+              <div class="card bg-lavender">
+                <div class="circle-logo bg-purple">
+                  <img src="img/commercial.png" alt="" class="logo" />
+                </div>
+                <h4>9.04K</h4>
+                <h5>Commercial Units</h5>
+              </div>
             </div>
-          </div>
-        </section>
-        <section class="trend-report">
-          <h2>Sales Trend</h2>
-          <img src="img/trend.png" alt="" />
-        </section>
-        <section class="sales">
-          <h2>Sales property</h2>
-          <img src="img/sales.png" alt="" />
-        </section>
-        <section class="satisfaction">
-          <h2>Customer satisfaction</h2>
-          <img src="img/satiffaction.png" alt="" />
-        </section>
-        <section class="target">
-          <h2>Target vs Reality</h2>
-          <img src="img/target.png" alt="" />
-        </section>
+          </section>
+          <section class="trend-report">
+            <h2>Sales Trend</h2>
+            <img src="img/trend.png" alt="" />
+          </section>
+          <section class="sales">
+            <h2>Sales property</h2>
+            <img src="img/sales.png" alt="" />
+          </section>
+          <section class="satisfaction">
+            <h2>Customer satisfaction</h2>
+            <img src="img/satiffaction.png" alt="" />
+          </section>
+          <section class="target">
+            <h2>Target vs Reality</h2>
+            <img src="img/target.png" alt="" />
+          </section>
+        </div>
       </div>
     </main>
   </body>
