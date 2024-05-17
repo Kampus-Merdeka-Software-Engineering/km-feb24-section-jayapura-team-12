@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #1c1c1c;
+}
+
 .logo {
   margin: 5px;
   width: 50px;
@@ -44,6 +48,7 @@ header .profile {
 main {
   background-color: #1c1c1c;
   padding: 3rem 3rem;
+  flex-grow: 1;
 }
 
 .card-container {
@@ -191,7 +196,8 @@ section {
 
 .team-container {
   width: 100%;
-  padding-top: 200px;
+  padding-top: 100px;
+  padding-bottom: 30px;
   margin: 0 auto;
   background-color: #1c1c1c;
 }
@@ -199,7 +205,16 @@ section {
 .team-title {
   text-align: center;
   color: #fff;
-  font-size: 30px;
+  font-size: 35px;
+}
+
+.team-content {
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #303336;
+  border-radius: 40px;
+  box-shadow: 0 0 20px rgb(255, 255, 255);
 }
 
 .team-banners {
@@ -216,7 +231,6 @@ section {
   margin: auto;
   margin-bottom: 30px;
   padding: 20px;
-  border: 1px solid #999;
   border-radius: 15px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 1);
 }
@@ -228,7 +242,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.7));
   border-radius: 15px;
 }
 
@@ -248,4 +262,3 @@ section {
   margin: 0;
   z-index: 1;
 }
-
