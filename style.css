@@ -212,9 +212,9 @@ section {
   max-width: 1400px;
   margin: 30px auto;
   padding: 20px;
-  background-color: #303336;
+  background-color: #1f2229;
   border-radius: 40px;
-  box-shadow: 0 0 20px rgb(255, 255, 255);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
 }
 
 .team-banners {
