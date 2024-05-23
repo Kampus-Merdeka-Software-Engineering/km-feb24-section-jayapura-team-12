@@ -4,16 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="laptop.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <header>
-      <h2>Dashboard - New York City Property Sales</h2>
-      <div class="profile">
-        <img class="logo" src="img/logo1.png" alt="logo" />
-        <p class="team12">Team 12</p>
-      </div>
+      <nav>
+        <h2>New York City Property Sales</h2>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="pages/about.html">About us</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
       <div class="container">
@@ -26,61 +28,33 @@
             <option value="Queens">Queens</option>
             <option value="Staten Island">Staten Island</option>
           </select>
-          <input type="date" id="datePicker" onchange="filterItems()" />
+
+          <div class="date-filter">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" />
+          </div>
+          <div class="date-filter">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" />
+          </div>
         </div>
-        <div class="card-container">
-          <section class="kpi">
-            <div class="kpi-title">
-              <h2>Sales Summary</h2>
-              <span>KPI (Key Performance Indicator)</span>
-            </div>
-            <div class="card-wrap">
-              <div class="card bg-violet">
-                <div class="circle-logo bg-pink">
-                  <img src="img/total sales.png" alt="" class="logo" />
-                </div>
-                <h4>58.5K</h4>
-                <h5>Total Sales</h5>
-              </div>
-              <div class="card bg-lemon">
-                <div class="circle-logo bg-orange">
-                  <img src="img/revenue.png" alt="" class="logo" />
-                </div>
-                <h4>89.1B</h4>
-                <h5>Revenue</h5>
-              </div>
-              <div class="card bg-mint">
-                <div class="circle-logo bg-green">
-                  <img src="img/residential.png" alt="" class="logo" />
-                </div>
-                <h4>99.5K</h4>
-                <h5>Residential Units</h5>
-              </div>
-              <div class="card bg-lavender">
-                <div class="circle-logo bg-purple">
-                  <img src="img/commercial.png" alt="" class="logo" />
-                </div>
-                <h4>9.04K</h4>
-                <h5>Commercial Units</h5>
-              </div>
-            </div>
-          </section>
-          <section class="trend-report">
-            <h2>Sales Trend</h2>
-            <img src="img/trend.png" alt="" />
-          </section>
-          <section class="sales">
-            <h2>Sales property</h2>
-            <img src="img/sales.png" alt="" />
-          </section>
-          <section class="satisfaction">
-            <h2>Customer satisfaction</h2>
-            <img src="img/satiffaction.png" alt="" />
-          </section>
-          <section class="target">
-            <h2>Target vs Reality</h2>
-            <img src="img/target.png" alt="" />
-          </section>
+        <div class="chart-container">
+          <div class="chart">
+            <h2>Sales Trend by Month</h2>
+            <canvas id="monthlySales"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Sales Trend by Quarter</h2>
+            <canvas id="quarterlySales"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Revenue by Borough</h2>
+            <canvas id="revenueByBorough"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Total sales by Borough</h2>
+            <canvas id="salesByBorough"></canvas>
+          </div>
         </div>
         <section class="team-section">
           <div class="team-title">
@@ -152,5 +126,15 @@
         </section>
       </div>
     </main>
+    <footer>
+      <div class="footer-desc">
+        <h2>Created by: Team 12</h2>
+        <img src="img/logo1.png" alt="" />
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
