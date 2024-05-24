@@ -185,3 +185,75 @@ ul {
 li {
   margin-bottom: 10px;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+h2 {
+  margin: 0; 
+  font-size: 2em;
+}
+
+h1 {
+  margin-bottom: 20px; 
+}
+
+h2 {
+  margin-bottom: 15px; 
+}
+
+main {
+  padding: 20px;
+}
+
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.team-member {
+  background-color: #202320;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-member img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.team-member h3 {
+  font-size: 1.2em;
+  margin: 10px 0 5px;
+}
+
+.team-member p {
+  margin: 0;
+  color: whitesmoke;
+}
+
