@@ -1,72 +1,93 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <h2>New York City Property Sales</h2>
-        <ul>
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="pages/about.html">About us</a></li>
-          <li><a href="#">Contact us</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <div class="container">
-        <div class="filter-section">
-          <select id="boroughSelect">
-            <option value="">Pilih Borough</option>
-            <option value="Manhattan">Manhattan</option>
-            <option value="Brooklyn">Brooklyn</option>
-            <option value="Bronx">Bronx</option>
-            <option value="Queens">Queens</option>
-            <option value="Staten Island">Staten Island</option>
-          </select>
+    <nav>
+      <img src="img/logo.jpg" alt="logo" />
+      <span>Team 12</span>
+      <div class="desc-dataset">
+        <p>
+          <!-- Dataset penjualan property di New York City dari September 2016 sampai
+          September 2017 -->
+        </p>
+      </div>
+    </nav>
 
-          <div class="date-filter">
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" />
+    <main>
+      <header>
+        <h2>Dashboard - New York City Property Sales</h2>
+      </header>
+      <div class="container">
+        <section class="kpi">
+          <div class="kpi-title">
+            <h2>Sales Summary</h2>
+            <span>KPI (Key Performance Indicator)</span>
           </div>
-          <div class="date-filter">
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" />
+          <div class="card-wrap">
+            <div class="card" style="background: #e9d5d7">
+              <h4>58.5K</h4>
+              <h5>Total Sales</h5>
+            </div>
+            <div class="card" style="background: #fed1ba">
+              <h4>89.1B</h4>
+              <h5>Revenue</h5>
+            </div>
+            <div class="card" style="background: #dcfce7">
+              <h4>99.5K</h4>
+              <h5>Residential Units</h5>
+            </div>
+            <div class="card" style="background: #f4e8ff">
+              <h4>9.04K</h4>
+              <h5>Commercial Units</h5>
+            </div>
           </div>
-        </div>
-        <div class="chart-container">
-          <div class="chart">
-            <h2>Sales Trend by Month</h2>
-            <canvas id="monthlySales"></canvas>
-          </div>
-          <div class="chart">
-            <h2>Sales Trend by Quarter</h2>
-            <canvas id="quarterlySales"></canvas>
-          </div>
-          <div class="chart">
-            <h2>Revenue by Borough</h2>
-            <canvas id="revenueByBorough"></canvas>
-          </div>
-          <div class="chart">
-            <h2>Total sales by Borough</h2>
-            <canvas id="salesByBorough"></canvas>
-          </div>
-        </div>
+        </section>
+        <section class="trend-report">
+          <h2>Sales Trend</h2>
+          <img src="img/trend.png" alt="" />
+        </section>
+        <section class="sales">
+          <h2>Sales property</h2>
+          <img src="img/sales.png" alt="" />
+        </section>
+        <section class="satisfaction">
+          <h2>Customer satisfaction</h2>
+          <img src="img/satiffaction.png" alt="" />
+        </section>
+        <section class="target">
+          <h2>Target vs Reality</h2>
+          <img src="img/target.png" alt="" />
+        </section>
+
+        <section class="feedback">
+          <h2>Feedback Form</h2>
+          <form id="feedback-form">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="feedback">Feedback:</label>
+              <textarea id="feedback" name="feedback" rows="4" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        </section>
+        
       </div>
+
+      <!-- Add more sections and charts as needed -->
     </main>
-    <footer>
-      <div class="footer-desc">
-        <h2>Created by: Team 12</h2>
-        <img src="img/logo1.png" alt="" />
-      </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-    <script src="js/chart.js"></script>
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
