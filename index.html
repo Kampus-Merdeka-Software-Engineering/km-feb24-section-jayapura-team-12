@@ -4,159 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="laptop.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/a027d00185.js"
+      crossorigin="anonymous"></script>
   </head>
   <body>
     <header>
-      <h2>Dashboard - New York City Property Sales</h2>
-      <div class="profile">
-        <img class="logo" src="img/logo1.png" alt="logo" />
-        <p class="team12">Team 12</p>
-      </div>
+      <nav>
+        <h2>New York City Property Sales</h2>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="pages/about.html">About us</a></li>
+          <li><a href="pages/feedback.html">Rate us</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
       <div class="container">
         <div class="filter-section">
+          <div class="kpi-card" id="totalSalesCard">
+            <div class="info">
+              <p id="totalSalesValue"></p>
+              <h3>Total Sales</h3>
+            </div>
+            <div class="icon-box">
+              <i class="fa-solid fa-paper-plane"></i>
+            </div>
+          </div>
+          <div class="kpi-card" id="totalRevenueCard">
+            <div class="info">
+              <p id="totalRevenueValue"></p>
+              <h3>Total Revenue</h3>
+            </div>
+            <div class="icon-box">
+              <i class="fa-solid fa-dollar-sign"></i>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="info">
+              <p id="totalResidentialUnitsValue">-</p>
+              <h3>Residential Units</h3>
+            </div>
+            <div class="icon-box">
+              <i class="fa-solid fa-house-chimney"></i>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="info">
+              <p id="totalCommercialUnitsValue">-</p>
+              <h3>Commercial Units</h3>
+            </div>
+            <div class="icon-box">
+              <i class="fa-solid fa-building"></i>
+            </div>
+          </div>
+
           <select id="boroughSelect">
-            <option value="">Pilih Borough</option>
+            <option value="">Select Borough</option>
             <option value="Manhattan">Manhattan</option>
             <option value="Brooklyn">Brooklyn</option>
             <option value="Bronx">Bronx</option>
             <option value="Queens">Queens</option>
             <option value="Staten Island">Staten Island</option>
           </select>
-          <input type="date" id="datePicker" onchange="filterItems()" />
         </div>
-        <div class="card-container">
-          <section class="kpi">
-            <div class="kpi-title">
-              <h2>Sales Summary</h2>
-              <span>KPI (Key Performance Indicator)</span>
-            </div>
-            <div class="card-wrap">
-              <div class="card bg-violet">
-                <div class="circle-logo bg-pink">
-                  <img src="img/total sales.png" alt="" class="logo" />
-                </div>
-                <h4>58.5K</h4>
-                <h5>Total Sales</h5>
-              </div>
-              <div class="card bg-lemon">
-                <div class="circle-logo bg-orange">
-                  <img src="img/revenue.png" alt="" class="logo" />
-                </div>
-                <h4>89.1B</h4>
-                <h5>Revenue</h5>
-              </div>
-              <div class="card bg-mint">
-                <div class="circle-logo bg-green">
-                  <img src="img/residential.png" alt="" class="logo" />
-                </div>
-                <h4>99.5K</h4>
-                <h5>Residential Units</h5>
-              </div>
-              <div class="card bg-lavender">
-                <div class="circle-logo bg-purple">
-                  <img src="img/commercial.png" alt="" class="logo" />
-                </div>
-                <h4>9.04K</h4>
-                <h5>Commercial Units</h5>
-              </div>
-            </div>
-          </section>
-          <section class="trend-report">
-            <h2>Sales Trend</h2>
-            <img src="img/trend.png" alt="" />
-          </section>
-          <section class="sales">
-            <h2>Sales property</h2>
-            <img src="img/sales.png" alt="" />
-          </section>
-          <section class="satisfaction">
-            <h2>Customer satisfaction</h2>
-            <img src="img/satiffaction.png" alt="" />
-          </section>
-          <section class="target">
-            <h2>Target vs Reality</h2>
-            <img src="img/target.png" alt="" />
-          </section>
+        <div class="charts">
+          <div class="chart">
+            <h2>Sales Trend by Month</h2>
+            <canvas id="monthlySales"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Sales Trend by Quarter</h2>
+            <canvas id="quarterlySales"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Revenue by Borough</h2>
+            <canvas id="revenueByBorough"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Total sales by Borough</h2>
+            <canvas id="salesByBorough"></canvas>
+          </div>
+        </div>
+        <div class="charts2">
+          <div class="chart">
+            <h2>Total Units</h2>
+            <canvas id="unitDistributionPercentage"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Sales by Borough</h2>
+            <canvas id="salesPercentageByBorough"></canvas>
+          </div>
+          <div class="chart">
+            <h2>Top 5 Class Building Sales</h2>
+            <canvas id="top5BuildingClassCategories"></canvas>
+          </div>
         </div>
       </div>
     </main>
-    <!-- Meet Our Team -->
-    <div class="team-container">
-      <div class="team-content">
-        <h2 class="team-title">Meet Our Team</h2>
-        <h2 class="team-title">Data Analytics & Software Development With AI</h2>
-        <div class="team-banners">
-          <div class="team">
-            <h3>Akbar</h3>
-            <p>Data Cleaning &</p>
-            <p>FrontEnd Engineer</p>
-          </div>
-          <div class="team">
-              <h3>Arenga</h3>
-              <p>Project Leader</p>
-          </div>
-          <div class="team">
-            <h3>Desvina</h3>
-            <p>Data Cleaning &</p>
-            <p>FrontEnd Engineer</p>
-          </div>
-        </div>
-        <div class="team-banners">
-          <div class="team">
-              <h3>Dwi</h3>
-              <p>Data Cleaning &</p>
-              <p>FrontEnd Engineer</p>
-          </div>
-          <div class="team">
-              <h3>Nurul</h3>
-              <p>Data Analysis &</p>
-              <p>FrontEnd Engineer</p>
-          </div>
-          <div class="team">
-            <h3>Deva</h3>
-            <p>Data Analysis &</p>
-            <p>Quality Assurance</p>
-          </div>
-        </div>
-        <div class="team-banners">
-          <div class="team">
-              <h3>Fajrianza</h3>
-              <p>Data Analysis &</p>
-              <p>Quality Assurance</p>
-          </div>
-          <div class="team">
-              <h3>Ima</h3>
-              <p>Data Visualization &</p>
-              <p>Deployment Team</p>
-          </div>
-          <div class="team">
-            <h3>Nasywa</h3>
-            <p>Data Visualization &</p>
-            <p>Pitch Deck Team</p>
-          </div>
-        </div>
-        <div class="team-banners">
-          <div class="team">
-              <h3>Trincy</h3>
-              <p>Data Visualization &</p>
-              <p>Quality Assurance</p>
-          </div>
-          <div class="team">
-              <h3>Everald</h3>
-              <p>Data Communication &</p>
-              <p>Pitch Deck Team</p>
-          </div>
-          <div class="team">
-            <h3>Queen</h3>
-            <p>Data Communication</p>
-            <p>-</p>
-          </div>
-        </div>
+    <footer>
+      <div class="footer-desc">
+        <h2>Created by: Team 12</h2>
+        <img src="img/logo1.png" alt="" />
       </div>
-    </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
