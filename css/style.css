@@ -64,7 +64,7 @@ header .profile {
 
 main {
   background-color: #1c1c1c;
-  padding: 3rem;
+  padding: 3rem 5rem;
   height: auto;
 }
 
@@ -113,8 +113,61 @@ nav ul li a:checked {
   color: red;
 }
 
-.container {
-  padding: 0 2rem;
+table,
+th,
+td,
+tr {
+  background-color: #1f2229;
+  color: white;
+}
+
+.table-container {
+  margin-top: 3rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.787);
+  background-color: #1f2229;
+  border-radius: 10px;
+  padding: 3rem 2rem;
+  color: white !important;
+  text-align: left !important;
+}
+
+.sorting_1,
+.sorting_2 {
+  background-color: #1f2229 !important;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  padding: 5px 20px !important;
+  background-color: #1f2229 !important;
+  width: auto;
+  text-align: center;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  color: white;
+  background-color: #1f2229 !important;
+}
+.dataTables_wrapper label {
+  color: white;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+  color: white !important;
+}
+
+.table-container
+  .dataTables_wrapper
+  .dataTables_paginate
+  .paginate_button.disabled {
+  color: white !important;
+}
+
+.table-container .dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: white !important;
 }
 
 /* SUMMARY SECTION */
