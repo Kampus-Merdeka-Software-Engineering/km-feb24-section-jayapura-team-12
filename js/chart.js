@@ -11,8 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
         sortedMonthlySales,
         sortedQuarterlyLabels,
         sortedQuarterlySales,
+        totalSales,
+        totalRevenue,
+        totalResidentialUnits,
+        totalCommercialUnits,
+        top5BuildingClassCategories,
       } = prepareChartData(data);
 
+      // Create Charts
       createChart(
         "revenueByBorough",
         "bar",
@@ -43,6 +49,38 @@ document.addEventListener("DOMContentLoaded", () => {
         sortedQuarterlySales,
         0.3
       );
+
+      // Create additional pie charts
+      createPieChart(
+        "salesPercentageByBorough",
+        "Sales Percentage by Borough",
+        sortedSalesByBoroughLabels,
+        calculatePercentage(sortedTotalSalesByBorough)
+      );
+
+      createPieChart(
+        "unitDistributionPercentage",
+        "Residential vs Commercial Units",
+        ["Residential Units", "Commercial Units"],
+        calculatePercentage([totalResidentialUnits, totalCommercialUnits])
+      );
+
+      createPieChart(
+        "top5BuildingClassCategories",
+        "Top 5 Building Class Categories",
+        top5BuildingClassCategories.labels,
+        top5BuildingClassCategories.percentages
+      );
+
+      // Update KPI Cards with compact number formatting
+      document.getElementById("totalSalesValue").textContent =
+        formatNumberCompact(totalSales);
+      document.getElementById("totalRevenueValue").textContent =
+        formatNumberCompact(totalRevenue);
+      document.getElementById("totalResidentialUnitsValue").textContent =
+        formatNumberCompact(totalResidentialUnits);
+      document.getElementById("totalCommercialUnitsValue").textContent =
+        formatNumberCompact(totalCommercialUnits);
     })
     .catch((error) => console.error("Error fetching data:", error));
 });
@@ -51,24 +89,46 @@ function prepareChartData(data) {
   const boroughData = {};
   const monthlySalesData = {};
   const quarterlySalesData = {};
+  const buildingClassData = {};
+  let totalSales = 0;
+  let totalRevenue = 0;
+  let totalResidentialUnits = 0;
+  let totalCommercialUnits = 0;
 
   data.flat(2).forEach((entry) => {
-    if (!entry["SALE PRICE"] || !entry["SALE DATE"] || !entry.BOROUGH) {
+    if (
+      !entry.sale_price ||
+      !entry.sale_date ||
+      !entry.borough ||
+      !entry.building_class_category
+    ) {
       return;
     }
 
     // Aggregate data by borough
-    if (!boroughData[entry.BOROUGH]) {
-      boroughData[entry.BOROUGH] = {
+    if (!boroughData[entry.borough]) {
+      boroughData[entry.borough] = {
         totalRevenue: 0,
         totalSales: 0,
+        residentialUnits: 0,
+        commercialUnits: 0,
       };
     }
-    boroughData[entry.BOROUGH].totalRevenue += entry["SALE PRICE"];
-    boroughData[entry.BOROUGH].totalSales += 1;
+    boroughData[entry.borough].totalRevenue += entry.sale_price;
+    boroughData[entry.borough].totalSales += 1;
+
+    // Aggregate total sales and revenue
+    totalSales += 1;
+    totalRevenue += entry.sale_price;
+
+    // Aggregate residential and commercial units
+    totalResidentialUnits += entry.residential_units || 0;
+    totalCommercialUnits += entry.commercial_units || 0;
+    boroughData[entry.borough].residentialUnits += entry.residential_units || 0;
+    boroughData[entry.borough].commercialUnits += entry.commercial_units || 0;
 
     // Aggregate monthly sales data
-    const saleDate = new Date(entry["SALE DATE"]);
+    const saleDate = new Date(entry.sale_date);
     const month = `${saleDate.getFullYear()}-${(
       "0" +
       (saleDate.getMonth() + 1)
@@ -86,6 +146,12 @@ function prepareChartData(data) {
       quarterlySalesData[quarter] = 0;
     }
     quarterlySalesData[quarter] += 1;
+
+    // Aggregate sales by building class category
+    if (!buildingClassData[entry.building_class_category]) {
+      buildingClassData[entry.building_class_category] = 0;
+    }
+    buildingClassData[entry.building_class_category] += 1;
   });
 
   // Prepare data for charts
@@ -131,6 +197,23 @@ function prepareChartData(data) {
     }
   });
 
+  // Menghitung rata-rata harga properti per borough
+  const averagePropertyPriceByBorough = sortedBoroughLabels.map((borough) => {
+    const totalPrices = boroughData[borough].totalRevenue;
+    const totalSales = boroughData[borough].totalSales;
+    return totalPrices / totalSales;
+  });
+
+  const buildingClassEntries = Object.entries(buildingClassData);
+  buildingClassEntries.sort((a, b) => b[1] - a[1]);
+  const top5BuildingClassCategories = {
+    labels: buildingClassEntries.slice(0, 5).map((entry) => entry[0]),
+    data: buildingClassEntries.slice(0, 5).map((entry) => entry[1]),
+    percentages: calculatePercentage(
+      buildingClassEntries.slice(0, 5).map((entry) => entry[1])
+    ),
+  };
+
   // Reorder monthly sales data based on sorted labels
   const sortedMonthlySales = sortedMonthlyLabels.map(
     (month) => monthlySalesData[month]
@@ -162,7 +245,28 @@ function prepareChartData(data) {
     sortedMonthlySales,
     sortedQuarterlyLabels,
     sortedQuarterlySales,
+    totalSales,
+    totalRevenue,
+    totalResidentialUnits,
+    totalCommercialUnits,
+    averagePropertyPriceByBorough,
+    top5BuildingClassCategories,
   };
+}
+
+function calculatePercentage(data) {
+  const total = data.reduce((acc, curr) => acc + curr, 0);
+  return data.map((value) => ((value / total) * 100).toFixed(2));
+}
+
+function formatNumberCompact(number) {
+  if (number >= 1e9) {
+    return (number / 1e9).toFixed(1) + "B";
+  } else if (number >= 1e6) {
+    return (number / 1e6).toFixed(1) + "M";
+  } else {
+    return number.toLocaleString();
+  }
 }
 
 function createChart(id, type, label, labels, data, lineTension = 0) {
@@ -179,8 +283,70 @@ function createChart(id, type, label, labels, data, lineTension = 0) {
           borderColor: "rgba(75, 192, 192, 1)",
           borderWidth: 1,
           lineTension: lineTension,
+          fill: "start",
         },
       ],
     },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            callback: function (value) {
+              return formatNumberCompact(value);
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+function createPieChart(id, label, labels, data) {
+  const ctx = document.getElementById(id).getContext("2d");
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: label,
+          data: data,
+          backgroundColor: [
+            "rgba(135, 122, 241, 0.37)",
+            "rgba(109, 152, 220, 0.64)",
+            "rgba(92, 172, 206, 0.85)",
+            "rgba(83, 182, 199, 0.91)",
+            "rgba(75, 192, 192, 1.0)",
+            "rgba(118, 142, 227, 0.5)",
+            "rgba(127, 132, 234, 0.46)",
+            "rgba(135, 122, 241, 0.37)",
+            "rgba(144, 112, 248, 0.28)",
+            "rgba(153, 102, 255, 0.19)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "right",
+          labels: {
+            boxWidth: 10,
+          },
+        },
+        datalabels: {
+          color: "#fff",
+          font: {
+            weight: "semi bold",
+          },
+          formatter: (value, context) => {
+            return value + "%";
+          },
+        },
+      },
+    },
+    plugins: [ChartDataLabels],
   });
 }
