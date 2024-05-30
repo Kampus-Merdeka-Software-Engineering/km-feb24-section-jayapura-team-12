@@ -9,6 +9,7 @@
 
 body {
   background-color: #1c1c1c;
+  height: 100vh;
 }
 
 .logo {
@@ -21,7 +22,7 @@ header {
   background-color: #1f2229;
   color: #fff;
   align-items: center;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 5rem;
 }
 
 nav {
@@ -63,8 +64,8 @@ header .profile {
 
 main {
   background-color: #1c1c1c;
-  padding: 3rem 3rem;
-  flex-grow: 1;
+  padding: 3rem;
+  height: auto;
 }
 
 select,
@@ -92,12 +93,6 @@ input[type="date"] {
   border: 1px solid white;
 }
 
-img {
-  max-width: 100%;
-  max-height: 100%;
-  display: block;
-}
-
 section {
   box-sizing: content-box;
   overflow: hidden;
@@ -110,12 +105,63 @@ section {
   height: 300px;
 }
 
+nav ul li a:hover {
+  color: rgba(75, 192, 192, 1);
+}
+
+nav ul li a:checked {
+  color: red;
+}
+
+.container {
+  padding: 0 2rem;
+}
+
+/* SUMMARY SECTION */
+
+.kpi-card {
+  width: 100%;
+  padding: 20px 25px;
+  border-radius: 10px;
+  background: #1f2229;
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-box i {
+  font-size: 2.3rem;
+  color: rgba(75, 192, 192, 1);
+}
+
+.kpi-card h3 {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.kpi-card p {
+  font-size: 2em;
+  margin: 0;
+  color: rgba(75, 192, 192, 1);
+}
+
+/* FILTER SECTION */
+
 .filter-section {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
   color: white;
-  gap: 15px;
+  gap: 30px;
+}
+
+.filter-section select {
+  border: none;
+  text-align: center;
+  background-color: rgba(75, 192, 192, 1);
+  color: #1f2229;
+  font-weight: 500;
 }
 
 .date-filter {
@@ -128,12 +174,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
-.chart-container {
+/* CHART SECTION */
+
+.charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
-  padding: 20px;
   padding-top: 3rem;
+  height: auto !important;
+}
+
+.charts2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding-top: 1rem;
   height: auto !important;
 }
 
@@ -142,10 +197,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   overflow: hidden;
   background-color: #1f2229;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.787);
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.787);
   color: white;
   padding: 1.5rem 2rem;
   margin: 10px;
+}
+
+canvas {
+  width: max-content !important;
 }
 
 .chart h2 {
@@ -232,6 +291,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .team {
+  display: flex;
+  justify-content: center;
   position: relative;
   height: 350px;
   width: 300px;
@@ -240,6 +301,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: auto;
   margin-bottom: 30px;
   padding: 20px;
+  padding-bottom: 0;
   border-radius: 15px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 1);
 }
@@ -251,29 +313,83 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
   border-radius: 15px;
 }
 
-.team h3 {
-  position: relative;
-  text-align: center;
-  color: rgb(255, 255, 255);
-  margin-top: 240px;
-  font-size: 22px;
-  z-index: 1;
+.team img {
+  width: 150%;
+  height: auto;
 }
 
-.team p {
-  position: relative;
+.team .desc {
+  width: 100%;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  color: #ffffff;
-  margin: 0;
-  z-index: 1;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+}
+
+/* Contact Feedback */
+.feedback {
+  padding: 2rem 3rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.787);
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.feedback h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group > .input-form {
+  width: 100%;
+  padding: 15px;
+
+  border-radius: 4px;
+}
+
+.form-group > label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-group > div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-submit {
+  background-color: rgba(75, 192, 192, 1);
+  border: none;
+  padding: 15px 20px;
+  font-weight: 500;
+  color: #1f2229;
+  display: block;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 2.5rem auto 0 auto;
+  cursor: pointer;
 }
 
 /* Footer */
-
 footer {
   background-color: #1f2229;
 }
