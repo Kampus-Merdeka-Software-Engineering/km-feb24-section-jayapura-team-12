@@ -461,27 +461,43 @@ canvas {
 .feedback h1 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group > .input-form {
+.form-group .item {
   width: 100%;
-  padding: 15px;
-
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  margin: 12px 0;
+  border: 2px solid rgba(75, 192, 192, 1);
+  outline: none;
+  background: transparent;
 }
 
-.form-group > label {
+.form-group.error .item {
+  border-color: red;
+}
+
+#comments {
+  resize: none;
+}
+
+.error-txt {
+  color: red;
+  font-size: small;
+  margin: -8px 0 5px 0;
+  display: none;
+}
+
+.form-group.error .error-txt {
   display: block;
-  margin-bottom: 10px;
 }
 
 .radio-group {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .radio-group > div {
@@ -491,8 +507,10 @@ canvas {
 }
 
 .btn-submit {
-  background-color: rgba(75, 192, 192, 1);
+  background: rgba(75, 192, 192, 1);
   border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(75, 192, 192, 1);
   padding: 15px 20px;
   font-weight: 500;
   color: #1f2229;
@@ -501,6 +519,11 @@ canvas {
   font-size: 1rem;
   margin: 2.5rem auto 0 auto;
   cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  box-shadow: none;
 }
 
 /* Footer */
