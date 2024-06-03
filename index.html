@@ -64,14 +64,51 @@
             </div>
           </div>
 
-          <select id="boroughSelect">
-            <option value="">Select Borough</option>
-            <option value="Manhattan">Manhattan</option>
-            <option value="Brooklyn">Brooklyn</option>
-            <option value="Bronx">Bronx</option>
-            <option value="Queens">Queens</option>
-            <option value="Staten Island">Staten Island</option>
-          </select>
+          <div class="dropdown">
+            <button class="dropbtn">Select Boroughs</button>
+            <div class="dropdown-content">
+              <label
+                ><input
+                  type="checkbox"
+                  value="Manhattan"
+                  onchange="handleCheckboxChange()"
+                  checked />
+                Manhattan</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  value="Brooklyn"
+                  onchange="handleCheckboxChange()"
+                  checked />
+                Brooklyn</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  value="Bronx"
+                  onchange="handleCheckboxChange()"
+                  checked />
+                Bronx</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  value="Queens"
+                  onchange="handleCheckboxChange()"
+                  checked />
+                Queens</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  value="Staten Island"
+                  onchange="handleCheckboxChange()"
+                  checked />
+                Staten Island</label
+              >
+            </div>
+          </div>
         </div>
         <div class="charts">
           <div class="chart">
@@ -111,6 +148,7 @@
           <table id="myTable" class="display" style="width: 100%">
             <thead>
               <tr>
+                <th>no</th>
                 <th>Borough</th>
                 <th>Neighborhood</th>
                 <th>Building Class</th>
@@ -119,8 +157,6 @@
                 <th>Commercial Units</th>
                 <th>Total Units</th>
                 <th>Year Built</th>
-                <th>Tax Class</th>
-                <th>Building Class</th>
                 <th>Sale Price</th>
                 <th>Sale Date</th>
               </tr>
@@ -138,8 +174,8 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="js/chart.js"></script>
     <script src="js/script.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   </body>
 </html>
