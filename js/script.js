@@ -6,6 +6,13 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
+      {
+        data: null,
+        title: "No",
+        render: function (data, type, row, meta) {
+          return meta.row + 1; // Menambahkan nomor baris
+        },
+      },
       { data: "borough" },
       { data: "neighborhood" },
       { data: "building_class_category" },
@@ -14,10 +21,9 @@ $(document).ready(function () {
       { data: "commercial_units" },
       { data: "total_units" },
       { data: "year_build" },
-      { data: "tax_class" },
-      { data: "building_class" },
       { data: "sale_price" },
       { data: "sale_date" },
     ],
+    pageLength: 10,
   });
 });

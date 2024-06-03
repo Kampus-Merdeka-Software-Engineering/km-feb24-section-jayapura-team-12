@@ -1,89 +1,124 @@
+let originalData = null;
+let charts = {}; // Object to store chart instances
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("data.json")
     .then((response) => response.json())
     .then((data) => {
-      const {
-        sortedBoroughLabels,
-        sortedTotalRevenueByBorough,
-        sortedSalesByBoroughLabels,
-        sortedTotalSalesByBorough,
-        sortedMonthlyLabels,
-        sortedMonthlySales,
-        sortedQuarterlyLabels,
-        sortedQuarterlySales,
-        totalSales,
-        totalRevenue,
-        totalResidentialUnits,
-        totalCommercialUnits,
-        top5BuildingClassCategories,
-      } = prepareChartData(data);
-
-      // Create Charts
-      createChart(
-        "revenueByBorough",
-        "bar",
-        "Total Revenue by Borough",
-        sortedBoroughLabels,
-        sortedTotalRevenueByBorough
-      );
-      createChart(
-        "salesByBorough",
-        "bar",
-        "Total Sales by Borough",
-        sortedSalesByBoroughLabels,
-        sortedTotalSalesByBorough
-      );
-      createChart(
-        "monthlySales",
-        "line",
-        "Total Sales per Month",
-        sortedMonthlyLabels,
-        sortedMonthlySales,
-        0.3
-      );
-      createChart(
-        "quarterlySales",
-        "line",
-        "Total Sales per Quarter",
-        sortedQuarterlyLabels,
-        sortedQuarterlySales,
-        0.3
-      );
-
-      // Create additional pie charts
-      createPieChart(
-        "salesPercentageByBorough",
-        "Sales Percentage by Borough",
-        sortedSalesByBoroughLabels,
-        calculatePercentage(sortedTotalSalesByBorough)
-      );
-
-      createPieChart(
-        "unitDistributionPercentage",
-        "Residential vs Commercial Units",
-        ["Residential Units", "Commercial Units"],
-        calculatePercentage([totalResidentialUnits, totalCommercialUnits])
-      );
-
-      createPieChart(
-        "top5BuildingClassCategories",
-        "Top 5 Building Class Categories",
-        top5BuildingClassCategories.labels,
-        top5BuildingClassCategories.percentages
-      );
-
-      // Update KPI Cards with compact number formatting
-      document.getElementById("totalSalesValue").textContent =
-        formatNumberCompact(totalSales);
-      document.getElementById("totalRevenueValue").textContent =
-        formatNumberCompact(totalRevenue);
-      document.getElementById("totalResidentialUnitsValue").textContent =
-        formatNumberCompact(totalResidentialUnits);
-      document.getElementById("totalCommercialUnitsValue").textContent =
-        formatNumberCompact(totalCommercialUnits);
+      originalData = data;
+      updateCharts(data); // Initialize charts with all data
     })
     .catch((error) => console.error("Error fetching data:", error));
 });
+
+function handleCheckboxChange() {
+  const checkboxes = document.querySelectorAll(
+    ".dropdown-content input[type=checkbox]"
+  );
+  const selectedBoroughs = Array.from(checkboxes)
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => checkbox.value);
+
+  filterDataByBoroughs(selectedBoroughs);
+}
+
+function filterDataByBoroughs(boroughs) {
+  if (!originalData) return;
+
+  const filteredData = originalData.filter((entry) =>
+    boroughs.includes(entry.borough)
+  );
+
+  updateCharts(filteredData);
+}
+
+function updateCharts(data) {
+  const {
+    sortedBoroughLabels,
+    sortedTotalRevenueByBorough,
+    sortedSalesByBoroughLabels,
+    sortedTotalSalesByBorough,
+    sortedMonthlyLabels,
+    boroughMonthlySales,
+    sortedQuarterlyLabels,
+    boroughQuarterlySales, // Tambahan
+    sortedQuarterlySales,
+    totalSales,
+    totalRevenue,
+    totalResidentialUnits,
+    totalCommercialUnits,
+    top5BuildingClassCategories,
+  } = prepareChartData(data);
+
+  // Create or update charts
+  charts.revenueByBorough = createOrUpdateChart(
+    charts.revenueByBorough,
+    "revenueByBorough",
+    "bar",
+    "Total Revenue by Borough",
+    sortedBoroughLabels,
+    sortedTotalRevenueByBorough
+  );
+  charts.salesByBorough = createOrUpdateChart(
+    charts.salesByBorough,
+    "salesByBorough",
+    "bar",
+    "Total Sales by Borough",
+    sortedSalesByBoroughLabels,
+    sortedTotalSalesByBorough
+  );
+  charts.monthlySales = createOrUpdateLineChart(
+    charts.monthlySales,
+    "monthlySales",
+    "Total Sales per Month by Borough",
+    sortedMonthlyLabels,
+    boroughMonthlySales,
+    0.3
+  );
+  charts.quarterlySales = createOrUpdateLineChart(
+    charts.quarterlySales,
+    "quarterlySales",
+    "Total Sales per Quarter by Borough", // Perubahan
+    sortedQuarterlyLabels,
+    boroughQuarterlySales, // Perubahan
+    0.3
+  );
+
+  // Create or update pie charts
+  charts.salesPercentageByBorough = createOrUpdatePieChart(
+    charts.salesPercentageByBorough,
+    "salesPercentageByBorough",
+    "Sales Percentage by Borough",
+    sortedSalesByBoroughLabels,
+    calculatePercentage(sortedTotalSalesByBorough)
+  );
+
+  charts.unitDistributionPercentage = createOrUpdatePieChart(
+    charts.unitDistributionPercentage,
+    "unitDistributionPercentage",
+    "Residential vs Commercial Units",
+    ["Residential Units", "Commercial Units"],
+    calculatePercentage([totalResidentialUnits, totalCommercialUnits])
+  );
+
+  charts.top5BuildingClassCategories = createOrUpdatePieChart(
+    charts.top5BuildingClassCategories,
+    "top5BuildingClassCategories",
+    "Top 5 Building Class Categories",
+    top5BuildingClassCategories.labels,
+    top5BuildingClassCategories.percentages
+  );
+
+  // Update KPI Cards with compact number formatting
+  document.getElementById("totalSalesValue").textContent =
+    formatNumberCompact(totalSales);
+  document.getElementById("totalRevenueValue").textContent =
+    formatNumberCompact(totalRevenue);
+  document.getElementById("totalResidentialUnitsValue").textContent =
+    formatNumberCompact(totalResidentialUnits);
+  document.getElementById("totalCommercialUnitsValue").textContent =
+    formatNumberCompact(totalCommercialUnits);
+}
 
 function prepareChartData(data) {
   const boroughData = {};
@@ -127,25 +162,31 @@ function prepareChartData(data) {
     boroughData[entry.borough].residentialUnits += entry.residential_units || 0;
     boroughData[entry.borough].commercialUnits += entry.commercial_units || 0;
 
-    // Aggregate monthly sales data
+    // Aggregate monthly sales data by borough
     const saleDate = new Date(entry.sale_date);
     const month = `${saleDate.getFullYear()}-${(
       "0" +
       (saleDate.getMonth() + 1)
     ).slice(-2)}`;
     if (!monthlySalesData[month]) {
-      monthlySalesData[month] = 0;
+      monthlySalesData[month] = {};
     }
-    monthlySalesData[month] += 1;
+    if (!monthlySalesData[month][entry.borough]) {
+      monthlySalesData[month][entry.borough] = 0;
+    }
+    monthlySalesData[month][entry.borough] += 1;
 
-    // Aggregate quarterly sales data
+    // Aggregate quarterly sales data by borough
     const quarter = `Q${
       Math.floor(saleDate.getMonth() / 3) + 1
     }-${saleDate.getFullYear()}`;
     if (!quarterlySalesData[quarter]) {
-      quarterlySalesData[quarter] = 0;
+      quarterlySalesData[quarter] = {};
     }
-    quarterlySalesData[quarter] += 1;
+    if (!quarterlySalesData[quarter][entry.borough]) {
+      quarterlySalesData[quarter][entry.borough] = 0;
+    }
+    quarterlySalesData[quarter][entry.borough] += 1;
 
     // Aggregate sales by building class category
     if (!buildingClassData[entry.building_class_category]) {
@@ -162,6 +203,7 @@ function prepareChartData(data) {
     borough: borough,
     revenue: boroughData[borough].totalRevenue,
   }));
+
   // Sorting boroughs by total revenue
   boroughRevenuePairs.sort((a, b) => b.revenue - a.revenue);
   const sortedBoroughLabels = boroughRevenuePairs.map((pair) => pair.borough);
@@ -174,6 +216,7 @@ function prepareChartData(data) {
     borough: borough,
     sales: boroughData[borough].totalSales,
   }));
+
   // Sorting by total sales
   totalSalesByBoroughPairs.sort((a, b) => b.sales - a.sales);
   const sortedSalesByBoroughLabels = totalSalesByBoroughPairs.map(
@@ -197,11 +240,13 @@ function prepareChartData(data) {
     }
   });
 
-  // Menghitung rata-rata harga properti per borough
-  const averagePropertyPriceByBorough = sortedBoroughLabels.map((borough) => {
-    const totalPrices = boroughData[borough].totalRevenue;
-    const totalSales = boroughData[borough].totalSales;
-    return totalPrices / totalSales;
+  const boroughMonthlySales = sortedBoroughLabels.map((borough) => {
+    return {
+      label: borough,
+      data: sortedMonthlyLabels.map(
+        (month) => monthlySalesData[month][borough] || 0
+      ),
+    };
   });
 
   const buildingClassEntries = Object.entries(buildingClassData);
@@ -214,11 +259,7 @@ function prepareChartData(data) {
     ),
   };
 
-  // Reorder monthly sales data based on sorted labels
-  const sortedMonthlySales = sortedMonthlyLabels.map(
-    (month) => monthlySalesData[month]
-  );
-
+  // Data Sales Trend by Quarter
   const quarterlyLabels = Object.keys(quarterlySalesData).sort();
 
   // Sort quarterly labels by year and quarter
@@ -232,6 +273,15 @@ function prepareChartData(data) {
     }
   });
 
+  const boroughQuarterlySales = sortedBoroughLabels.map((borough) => {
+    return {
+      label: borough,
+      data: sortedQuarterlyLabels.map(
+        (quarter) => quarterlySalesData[quarter][borough] || 0
+      ),
+    };
+  });
+
   const sortedQuarterlySales = sortedQuarterlyLabels.map(
     (quarter) => quarterlySalesData[quarter]
   );
@@ -242,14 +292,14 @@ function prepareChartData(data) {
     sortedSalesByBoroughLabels,
     sortedTotalSalesByBorough,
     sortedMonthlyLabels,
-    sortedMonthlySales,
+    boroughMonthlySales,
     sortedQuarterlyLabels,
+    boroughQuarterlySales,
     sortedQuarterlySales,
     totalSales,
     totalRevenue,
     totalResidentialUnits,
     totalCommercialUnits,
-    averagePropertyPriceByBorough,
     top5BuildingClassCategories,
   };
 }
@@ -269,9 +319,22 @@ function formatNumberCompact(number) {
   }
 }
 
-function createChart(id, type, label, labels, data, lineTension = 0) {
+function createOrUpdateChart(
+  chartInstance,
+  id,
+  type,
+  label,
+  labels,
+  data,
+  lineTension = 0
+) {
+  if (chartInstance) {
+    // Destroy existing chart before creating a new one
+    chartInstance.destroy();
+  }
+
   const ctx = document.getElementById(id).getContext("2d");
-  new Chart(ctx, {
+  chartInstance = new Chart(ctx, {
     type: type,
     data: {
       labels: labels,
@@ -291,38 +354,88 @@ function createChart(id, type, label, labels, data, lineTension = 0) {
       scales: {
         y: {
           ticks: {
-            callback: function (value) {
-              return formatNumberCompact(value);
-            },
+            callback: (value) => formatNumberCompact(value),
           },
         },
       },
     },
   });
+
+  return chartInstance;
 }
 
-function createPieChart(id, label, labels, data) {
+function createOrUpdateLineChart(
+  chartInstance,
+  id,
+  label,
+  labels,
+  datasets,
+  lineTension = 0
+) {
+  if (chartInstance) {
+    // Destroy existing chart before creating a new one
+    chartInstance.destroy();
+  }
+
   const ctx = document.getElementById(id).getContext("2d");
-  new Chart(ctx, {
-    type: "pie",
+  const backgroundColor = [
+    "rgba(80, 48, 145)",
+    "rgba(153, 153, 255, 0.5)",
+    "rgba(102, 204, 255, 0.6)",
+    "rgba(255, 204, 102, 0.9)",
+    "rgba(255, 153, 51, 1)",
+  ];
+  chartInstance = new Chart(ctx, {
+    type: "line",
     data: {
       labels: labels,
+      datasets: datasets.map((dataset) => ({
+        ...dataset,
+        lineTension: lineTension,
+        borderWidth: 2,
+        borderColor: backgroundColor,
+        pointRadius: 2,
+        pointStyle: "point",
+        pointBorderColor: "rgba(102, 204, 255, 0.6)",
+      })),
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            callback: (value) => formatNumberCompact(value),
+          },
+        },
+      },
+    },
+  });
+
+  return chartInstance;
+}
+
+function createOrUpdatePieChart(chartInstance, id, label, labels, data) {
+  if (chartInstance) {
+    // Destroy existing chart before creating a new one
+    chartInstance.destroy();
+  }
+
+  const ctx = document.getElementById(id).getContext("2d");
+  const backgroundColor = [
+    "rgba(135, 122, 241, 0.37)",
+    "rgba(109, 152, 220, 0.64)",
+    "rgba(92, 172, 206, 0.85)",
+    "rgba(83, 182, 199, 0.91)",
+    "rgba(75, 192, 192, 1.0)",
+  ];
+  chartInstance = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels,
       datasets: [
         {
-          label: label,
-          data: data,
-          backgroundColor: [
-            "rgba(135, 122, 241, 0.37)",
-            "rgba(109, 152, 220, 0.64)",
-            "rgba(92, 172, 206, 0.85)",
-            "rgba(83, 182, 199, 0.91)",
-            "rgba(75, 192, 192, 1.0)",
-            "rgba(118, 142, 227, 0.5)",
-            "rgba(127, 132, 234, 0.46)",
-            "rgba(135, 122, 241, 0.37)",
-            "rgba(144, 112, 248, 0.28)",
-            "rgba(153, 102, 255, 0.19)",
-          ],
+          label,
+          data,
+          backgroundColor,
           borderWidth: 1,
         },
       ],
@@ -341,12 +454,12 @@ function createPieChart(id, label, labels, data) {
           font: {
             weight: "semi bold",
           },
-          formatter: (value, context) => {
-            return value + "%";
-          },
+          formatter: (value) => value + "%",
         },
       },
     },
     plugins: [ChartDataLabels],
   });
+
+  return chartInstance;
 }
