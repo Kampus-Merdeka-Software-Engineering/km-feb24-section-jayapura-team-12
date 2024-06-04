@@ -221,16 +221,6 @@ table.dataTable thead th:nth-child(1) {
   font-weight: 500;
 }
 
-.date-filter {
-  color: white;
-  display: flex;
-  flex-direction: column;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
-
 .dropdown {
   position: relative;
   display: inline-block;
@@ -240,6 +230,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
+  border-radius: 0 0px 8px 8px;
+  padding: 10px 0;
+  width: 100%;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -281,15 +274,78 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .dropdown-content label {
-  display: block;
   color: #1f2229;
   padding: 8px 15px;
+  align-self: center;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 1px solid #838383;
+  border-radius: 2px;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: rgba(75, 192, 192, 1);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  left: 6px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.checkbox-container p {
+  width: max-content;
+  padding-left: 20px;
+  margin-left: 10px;
 }
 
 /* CHART SECTION */
 
 .charts {
   display: grid;
+  color: white !important;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
   padding-top: 3rem;
@@ -322,7 +378,7 @@ canvas {
 
 .chart h2 {
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .circle-logo {
@@ -393,7 +449,7 @@ canvas {
 .team-content {
   max-width: 90%;
   margin: 30px auto;
-  padding: 5rem 20px;
+  padding: 3rem 20px;
   background-color: #1f2229;
   border-radius: 40px;
   box-shadow: 0 0 10px rgb(255, 255, 255);
@@ -401,7 +457,8 @@ canvas {
 
 .team-banners {
   display: flex;
-  margin-top: 100px;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }
 
 .team {
@@ -412,12 +469,23 @@ canvas {
   width: 300px;
   background-image: url("../img/logo.jpg");
   background-size: 100%;
+  background-repeat: repeat;
   margin: auto;
   margin-bottom: 30px;
   padding: 20px;
   padding-bottom: 0;
   border-radius: 15px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+}
+
+.team-banners .logo {
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 1);
+  top: 10px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
 }
 
 .team::before {
@@ -432,7 +500,7 @@ canvas {
 }
 
 .team img {
-  width: 150%;
+  /* width: 150%; */
   height: auto;
 }
 
@@ -460,8 +528,12 @@ canvas {
 
 .feedback h1 {
   font-size: 1.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.7rem;
   text-align: center;
+}
+
+.form-group {
+  margin-bottom: 0.7rem;
 }
 
 .form-group .item {
@@ -470,9 +542,12 @@ canvas {
   border-radius: 5px;
   color: white;
   margin: 12px 0;
-  border: 2px solid rgba(75, 192, 192, 1);
+  border: 2px solid rgb(255, 255, 255);
   outline: none;
   background: transparent;
+}
+.form-group .item:focus {
+  border: 2px solid rgba(75, 192, 192, 1);
 }
 
 .form-group.error .item {
@@ -498,12 +573,27 @@ canvas {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .radio-group > div {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.radio-group div input {
+  width: fit-content !important;
+  border: 2px solid white;
+  border-radius: 50% !important;
+  appearance: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.radio-group div input:not(:disabled):checked {
+  border: 2px solid white;
+  background-color: rgba(75, 192, 192, 1);
 }
 
 .btn-submit {
@@ -519,11 +609,31 @@ canvas {
   font-size: 1rem;
   margin: 2.5rem auto 0 auto;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 button:hover {
   box-shadow: none;
+}
+
+/* swal2 */
+.swal2-modal {
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.787) !important;
+  padding: 0 0 2.2em;
+}
+
+.swal2-title {
+  color: #ffffff;
+}
+
+.swal2-html-container {
+  color: #ffffff !important;
+}
+
+.swal2-confirm {
+  color: #1f2229 !important;
+  border: none !important;
+  box-shadow: 0 0 10px rgba(75, 192, 192, 1);
 }
 
 /* Footer */

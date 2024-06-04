@@ -1,12 +1,12 @@
 let originalData = null;
-let charts = {}; // Object to store chart instances
+let charts = {};
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("data.json")
     .then((response) => response.json())
     .then((data) => {
       originalData = data;
-      updateCharts(data); // Initialize charts with all data
+      updateCharts(data);
     })
     .catch((error) => console.error("Error fetching data:", error));
 });
@@ -41,13 +41,12 @@ function updateCharts(data) {
     sortedMonthlyLabels,
     boroughMonthlySales,
     sortedQuarterlyLabels,
-    boroughQuarterlySales, // Tambahan
-    sortedQuarterlySales,
+    boroughQuarterlySales,
     totalSales,
     totalRevenue,
     totalResidentialUnits,
     totalCommercialUnits,
-    top5BuildingClassCategories,
+    top3BuildingClassCategories,
   } = prepareChartData(data);
 
   // Create or update charts
@@ -101,12 +100,12 @@ function updateCharts(data) {
     calculatePercentage([totalResidentialUnits, totalCommercialUnits])
   );
 
-  charts.top5BuildingClassCategories = createOrUpdatePieChart(
-    charts.top5BuildingClassCategories,
-    "top5BuildingClassCategories",
-    "Top 5 Building Class Categories",
-    top5BuildingClassCategories.labels,
-    top5BuildingClassCategories.percentages
+  charts.top3BuildingClassCategories = createOrUpdatePieChart(
+    charts.top3BuildingClassCategories,
+    "top3BuildingClassCategories",
+    "Top 3 Building Class Categories",
+    top3BuildingClassCategories.labels,
+    top3BuildingClassCategories.percentages
   );
 
   // Update KPI Cards with compact number formatting
@@ -251,11 +250,11 @@ function prepareChartData(data) {
 
   const buildingClassEntries = Object.entries(buildingClassData);
   buildingClassEntries.sort((a, b) => b[1] - a[1]);
-  const top5BuildingClassCategories = {
-    labels: buildingClassEntries.slice(0, 5).map((entry) => entry[0]),
-    data: buildingClassEntries.slice(0, 5).map((entry) => entry[1]),
+  const top3BuildingClassCategories = {
+    labels: buildingClassEntries.slice(0, 3).map((entry) => entry[0]),
+    data: buildingClassEntries.slice(0, 3).map((entry) => entry[1]),
     percentages: calculatePercentage(
-      buildingClassEntries.slice(0, 5).map((entry) => entry[1])
+      buildingClassEntries.slice(0, 3).map((entry) => entry[1])
     ),
   };
 
@@ -300,7 +299,7 @@ function prepareChartData(data) {
     totalRevenue,
     totalResidentialUnits,
     totalCommercialUnits,
-    top5BuildingClassCategories,
+    top3BuildingClassCategories,
   };
 }
 
@@ -351,9 +350,22 @@ function createOrUpdateChart(
       ],
     },
     options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "#fff",
+          },
+        },
+      },
       scales: {
+        x: {
+          ticks: {
+            color: "#fff",
+          },
+        },
         y: {
           ticks: {
+            color: "#fff",
             callback: (value) => formatNumberCompact(value),
           },
         },
@@ -376,6 +388,17 @@ function createOrUpdateLineChart(
     // Destroy existing chart before creating a new one
     chartInstance.destroy();
   }
+
+  const legendMargin = {
+    id: "legendMargin",
+    beforeInit(chart) {
+      const fitValue = chart.legend.fit;
+      chart.legend.fit = function fit() {
+        fitValue.bind(chart.legend)();
+        return (this.height += 20);
+      };
+    },
+  };
 
   const ctx = document.getElementById(id).getContext("2d");
   const backgroundColor = [
@@ -400,14 +423,31 @@ function createOrUpdateLineChart(
       })),
     },
     options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "#fff",
+          },
+        },
+      },
       scales: {
+        x: {
+          textBaseline: "top",
+          ticks: {
+            padding: 10,
+            color: "#fff",
+          },
+        },
         y: {
           ticks: {
+            padding: 20,
+            color: "#fff",
             callback: (value) => formatNumberCompact(value),
           },
         },
       },
     },
+    plugins: [legendMargin],
   });
 
   return chartInstance;
@@ -446,6 +486,7 @@ function createOrUpdatePieChart(chartInstance, id, label, labels, data) {
         legend: {
           position: "right",
           labels: {
+            color: "#fff",
             boxWidth: 10,
           },
         },
