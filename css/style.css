@@ -639,18 +639,63 @@ button:hover {
 /* Footer */
 footer {
   background-color: #1f2229;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  color: white;
+  padding: 3.5rem 0;
 }
 
-.footer-desc {
-  padding: 3rem 2rem;
+footer h2 {
+  margin-bottom: 1.3rem;
+}
+
+.footer-cr {
+  height: fit-content;
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 2.5rem;
   justify-content: center;
   color: white;
 }
 
-.footer-desc img {
-  width: 50px;
-  height: 50px;
+.footer-cr h2 {
+  margin: 0;
+}
+
+.footer-cr img {
+  width: 80px;
+  height: 80px;
+}
+
+.footer-nav,
+.footer-cr,
+.footer-followus {
+  width: auto;
+  margin: 0 auto;
+}
+
+.footer-nav ul li {
+  padding: 10px 0;
+}
+
+.footer-nav ul li a:hover {
+  color: rgba(75, 192, 192, 1);
+}
+
+.footer-followus .icon-box {
+  display: inline;
+  margin: 10px;
+}
+
+.footer-followus .icon-box:nth-of-type(1) {
+  margin-left: 0 !important;
+}
+
+.footer-followus .icon-box i {
+  color: white;
+}
+
+.footer-followus .icon-box i:hover {
+  color: rgba(75, 192, 192, 1);
 }
