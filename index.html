@@ -29,7 +29,7 @@
         <div class="filter-section">
           <div class="kpi-card" id="totalSalesCard">
             <div class="info">
-              <p id="totalSalesValue"></p>
+              <p id="totalSalesValue">-</p>
               <h3>Total Sales</h3>
             </div>
             <div class="icon-box">
@@ -38,7 +38,7 @@
           </div>
           <div class="kpi-card" id="totalRevenueCard">
             <div class="info">
-              <p id="totalRevenueValue"></p>
+              <p id="totalRevenueValue">-</p>
               <h3>Total Revenue</h3>
             </div>
             <div class="icon-box">
@@ -67,46 +67,51 @@
           <div class="dropdown">
             <button class="dropbtn">Select Boroughs</button>
             <div class="dropdown-content">
-              <label
-                ><input
+              <label class="checkbox-container">
+                <input
                   type="checkbox"
                   value="Manhattan"
                   onchange="handleCheckboxChange()"
                   checked />
-                Manhattan</label
-              >
-              <label
-                ><input
+                <span class="checkmark"></span>
+                <p>Manhattan</p>
+              </label>
+              <label class="checkbox-container">
+                <input
                   type="checkbox"
                   value="Brooklyn"
                   onchange="handleCheckboxChange()"
                   checked />
-                Brooklyn</label
-              >
-              <label
-                ><input
+                <span class="checkmark"></span>
+                <p>Brooklyn</p>
+              </label>
+              <label class="checkbox-container">
+                <input
                   type="checkbox"
                   value="Bronx"
                   onchange="handleCheckboxChange()"
                   checked />
-                Bronx</label
-              >
-              <label
-                ><input
+                <span class="checkmark"></span>
+                <p>Bronx</p>
+              </label>
+              <label class="checkbox-container">
+                <input
                   type="checkbox"
                   value="Queens"
                   onchange="handleCheckboxChange()"
                   checked />
-                Queens</label
-              >
-              <label
-                ><input
+                <span class="checkmark"></span>
+                <p>Queens</p>
+              </label>
+              <label class="checkbox-container">
+                <input
                   type="checkbox"
                   value="Staten Island"
                   onchange="handleCheckboxChange()"
                   checked />
-                Staten Island</label
-              >
+                <span class="checkmark"></span>
+                <p>Staten Island</p>
+              </label>
             </div>
           </div>
         </div>
@@ -138,8 +143,8 @@
             <canvas id="salesPercentageByBorough"></canvas>
           </div>
           <div class="chart">
-            <h2>Top 5 Class Building Sales</h2>
-            <canvas id="top5BuildingClassCategories"></canvas>
+            <h2>Top 3 Class Building Sales</h2>
+            <canvas id="top3BuildingClassCategories"></canvas>
           </div>
         </div>
       </div>
@@ -168,7 +173,7 @@
     </main>
     <footer>
       <div class="footer-desc">
-        <h2>Created by: Team 12</h2>
+        <h2>Created by: Team 12 - Jayapura</h2>
         <img src="img/logo1.png" alt="" />
       </div>
     </footer>

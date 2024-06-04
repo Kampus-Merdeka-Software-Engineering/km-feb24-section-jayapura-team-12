@@ -1,75 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Feedback</title>
     <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+  </head>
+  <body>
     <header>
-        <nav>
-            <h2>New York City Property Sales</h2>
-            <ul>
-                <li><a href="../index.html">Dashboard</a></li>
-                <li><a href="about.html">About us</a></li>
-                <li><a href="#">Rate us</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <h2>New York City Property Sales</h2>
+        <ul>
+          <li><a href="../index.html">Dashboard</a></li>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="#">Rate us</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-        <section class="feedback">
-            <h1>Dashboard Feedback</h1>
-            <form action="#">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" placeholder="Enter your name" id="name" class="item" autocomplete="off">
-                    <div class="error-txt">Name can't be blank</div>
-                </div>
+      <section class="feedback">
+        <h1>Dashboard Feedback</h1>
+        <form action="#">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              id="name"
+              class="item"
+              autocomplete="off" />
+            <div class="error-txt">Name can't be blank</div>
+          </div>
 
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="text" placeholder="Enter your email" id="email" class="item" autocomplete="off">
-                    <div class="error-txt email">Email address can't be blank</div>
-                </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              id="email"
+              class="item"
+              autocomplete="off" />
+            <div class="error-txt email">Email address can't be blank</div>
+          </div>
 
-                <div class="form-group">
-                    <label for="rating">How would you rate your experience?</label>
-                    <div class="radio-group">
-                        <div>
-                            <input type="radio" id="rating-1" class="item" name="rating" value="1"/>
-                            <label for="rating-1">Very Poor</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rating-2" class="item" name="rating" value="2"/>
-                            <label for="rating-2">Average</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rating-3" class="item" name="rating" value="3"/>
-                            <label for="rating-3">Good</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rating-4" class="item" name="rating" value="4"/>
-                            <label for="rating-4">Very Good</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rating-5" class="item" name="rating" value="5"/>
-                            <label for="rating-5">Excellent</label>
-                        </div>
-                    </div>
-                </div>
+          <div class="form-group">
+            <label for="rating">How would you rate your experience?</label>
+            <div class="radio-group">
+              <div>
+                <input
+                  type="radio"
+                  id="rating-1"
+                  class="item"
+                  name="rating"
+                  value="Very Poor" />
+                <label for="rating-1">Very Poor</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="rating-2"
+                  class="item"
+                  name="rating"
+                  value="Average" />
+                <label for="rating-2">Average</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="rating-3"
+                  class="item"
+                  name="rating"
+                  value="Good" />
+                <label for="rating-3">Good</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="rating-4"
+                  class="item"
+                  name="rating"
+                  value="Very Good" />
+                <label for="rating-4">Very Good</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="rating-5"
+                  class="item"
+                  name="rating"
+                  value="Excellent" />
+                <label for="rating-5">Excellent</label>
+              </div>
+            </div>
+          </div>
 
-                <div class="form-group">
-                    <label for="comments">Do you have suggestions on what we can do to provide you with a better service:</label>
-                    <textarea id="comments" name="comments" rows="8" placeholder="Your Comments" class="item" autocomplete="off"></textarea>
-                    <div class="error-txt">Comments can't be blank</div>
-                </div>
+          <div class="form-group">
+            <label for="comments"
+              >Do you have suggestions on what we can do to provide you with a
+              better service:</label
+            >
+            <textarea
+              id="comments"
+              name="comments"
+              rows="8"
+              placeholder="Your Comments"
+              class="item"
+              autocomplete="off"></textarea>
+            <div class="error-txt">Comments can't be blank</div>
+          </div>
 
-                <button type="submit" class="btn-submit">Submit Feedback</button>
-            </form>
-        </section>
+          <button type="submit" class="btn-submit">Submit Feedback</button>
+        </form>
+      </section>
     </main>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
     <script src="/js/rate.js"></script>
-</body>
+  </body>
 </html>
