@@ -120,60 +120,6 @@ tr {
   color: white;
 }
 
-.table-container {
-  margin-top: 3rem;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.787);
-  background-color: #1f2229;
-  border-radius: 10px;
-  padding: 3rem 2rem;
-  color: white !important;
-  text-align: left !important;
-}
-
-.sorting_1,
-.sorting_2 {
-  background-color: #1f2229 !important;
-}
-
-.dataTables_wrapper .dataTables_length select {
-  padding: 10px !important;
-  margin: 0 5px;
-  background-color: #1f2229 !important;
-  width: auto;
-  text-align: center;
-}
-
-.dataTables_wrapper .dataTables_filter input {
-  color: white;
-  background-color: #1f2229 !important;
-}
-.dataTables_wrapper label {
-  color: white;
-}
-
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_processing,
-.dataTables_wrapper .dataTables_paginate {
-  color: white !important;
-}
-
-.table-container
-  .dataTables_wrapper
-  .dataTables_paginate
-  .paginate_button.disabled {
-  color: white !important;
-}
-
-.table-container .dataTables_wrapper .dataTables_paginate .paginate_button {
-  color: white !important;
-}
-
-table.dataTable thead th:nth-child(1) {
-  padding-left: 0 !important ;
-}
-
 /* SUMMARY SECTION */
 
 .kpi-card {
@@ -432,6 +378,61 @@ canvas {
   background-color: rgb(204, 98, 253);
 }
 
+/* Data Tables */
+.table-container {
+  margin-top: 3rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.787);
+  background-color: #1f2229;
+  border-radius: 10px;
+  padding: 3rem 2rem;
+  color: white !important;
+  text-align: left !important;
+}
+
+.sorting_1,
+.sorting_2 {
+  background-color: #1f2229 !important;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  padding: 10px !important;
+  margin: 0 5px;
+  background-color: #1f2229 !important;
+  width: auto;
+  text-align: center;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  color: white;
+  background-color: #1f2229 !important;
+}
+.dataTables_wrapper label {
+  color: white;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+  color: white !important;
+}
+
+.table-container
+  .dataTables_wrapper
+  .dataTables_paginate
+  .paginate_button.disabled {
+  color: white !important;
+}
+
+.table-container .dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: white !important;
+}
+
+table.dataTable thead th:nth-child(1) {
+  padding-left: 0 !important ;
+}
+
 /* Meet Our Team */
 .team-container {
   width: 100%;
@@ -653,10 +654,26 @@ footer h2 {
 .footer-cr {
   height: fit-content;
   display: flex;
-  align-items: center;
+  align-items: end;
+  justify-content: end;
   gap: 2.5rem;
-  justify-content: center;
   color: white;
+}
+
+.footer-cr .team12,
+.footer-cr .email {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: end;
+}
+
+.footer-cr .email {
+  margin-top: 2rem;
+}
+
+.footer-cr .team12 div h2:nth-child(1) {
+  margin-bottom: 10px;
 }
 
 .footer-cr h2 {
