@@ -469,7 +469,7 @@ table.dataTable thead th:nth-child(1) {
   background-color: #1c1c1c;
 }
 
-.team-title {
+.team-title h2 {
   text-align: center;
   color: #fff;
   font-size: 35px;
@@ -529,7 +529,6 @@ table.dataTable thead th:nth-child(1) {
 }
 
 .team img {
-  /* width: 150%; */
   height: auto;
 }
 
@@ -753,6 +752,15 @@ footer h2 {
   header {
     padding: 1.5rem 2rem;
     width: 100%;
+    height: 124px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 1;
+  }
+
+  nav {
+    width: 100%;
   }
 
   nav h2 {
@@ -768,11 +776,13 @@ footer h2 {
     right: 0;
     background-color: #1f2229;
     box-shadow: 0 0 7px rgba(255, 255, 255, 0.7);
+    z-index: 999;
   }
 
   nav > ul > li {
     margin: 15px 0;
     padding: 20px;
+    z-index: 99;
   }
 
   nav > ul.show {
@@ -826,6 +836,39 @@ footer h2 {
 
   table.dataTable thead th:nth-child(1) {
     padding-left: 15px !important;
+  }
+
+  /* Team Section */
+  .team-title h2 {
+    font-size: 25px;
+  }
+
+  .team-title {
+    margin-bottom: 50px;
+  }
+
+  .team-content {
+    max-width: 100%;
+  }
+
+  .team-banners {
+    margin-top: 0;
+  }
+
+  .team {
+    width: 250px;
+    height: 250px;
+  }
+
+  /* Feedback */
+
+  .feedback {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .radio-group {
+    flex-direction: column;
   }
 
   /* Footer */
