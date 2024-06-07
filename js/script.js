@@ -1,4 +1,10 @@
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
 $(document).ready(function () {
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+  });
+
   $("#myTable").DataTable({
     responsive: true,
     ajax: {
